@@ -153,6 +153,7 @@ function fillDriveModal(){const c=getDriveConfig();$('apiKeyInput').value=c.apiK
 function openDriveModal(){fillDriveModal();$('driveSetupMessage').textContent='';$('driveModal').classList.remove('hidden')}
 function closeDriveModal(){$('driveModal').classList.add('hidden')}
 $('driveSetupBtn').addEventListener('click',openDriveModal);$('closeDriveModal').addEventListener('click',closeDriveModal);
+$('earlyDriveSetupBtn').addEventListener('click',openDriveModal);
 
 async function driveList(folderId,mimePrefix){
   const c=getDriveConfig(); if(!folderId)throw new Error('Folder ID is missing.'); if(!c.apiKey||c.apiKey.includes('PASTE_'))throw new Error('Google Drive API key is missing.');
