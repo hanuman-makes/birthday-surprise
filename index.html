@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#170b19" />
+  <title>For You 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="sparkleLayer" class="sparkle-layer" aria-hidden="true"></div>
+  <main id="app">
+    <!-- 1 PIN -->
+    <section id="pinScreen" class="screen active pin-screen">
+      <div class="ambient-hearts" aria-hidden="true">💗　✨　🌸　💕　🦋　✨　💗</div>
+      <div class="card pin-card">
+        <div class="character-slot hero-character character-bounce"></div>
+        <p class="eyebrow">A little surprise is waiting...</p>
+        <h1>Enter the birthday PIN 💗</h1>
+        <p class="muted">Only the birthday star should know it ✨</p>
+        <div id="pinDots" class="pin-dots" aria-label="PIN progress">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="dial-pad">
+          <button class="dial-key" data-key="1">1</button><button class="dial-key" data-key="2">2</button><button class="dial-key" data-key="3">3</button>
+          <button class="dial-key" data-key="4">4</button><button class="dial-key" data-key="5">5</button><button class="dial-key" data-key="6">6</button>
+          <button class="dial-key" data-key="7">7</button><button class="dial-key" data-key="8">8</button><button class="dial-key" data-key="9">9</button>
+          <button class="dial-key dial-special" data-key="clear">C</button><button class="dial-key" data-key="0">0</button><button class="dial-key dial-special" data-key="back">⌫</button>
+        </div>
+        <button id="unlockBtn" class="primary-btn full-btn">Unlock ✨</button>
+        <p id="pinError" class="error-text"></p>
+      </div>
+    </section>
+
+    <!-- 2 YES/NO -->
+    <section id="choiceScreen" class="screen hidden choice-screen">
+      <div class="character-slot floating-character choice-character"></div>
+      <div class="card choice-card">
+        <div class="big-sticker">💌</div>
+        <p class="eyebrow">Step 2 of the surprise</p>
+        <h2>Do you want to continue?</h2>
+        <p id="choiceMessage">I made something just for you... 🥺</p>
+        <div class="choice-buttons"><button id="yesBtn" class="primary-btn">YESSS! 💕</button><button id="noBtn" class="secondary-btn">NO 🙈</button></div>
+        <p id="noCounter" class="muted small">Choose wisely 😌</p>
+      </div>
+    </section>
+
+    <!-- 3 CUPID -->
+    <section id="cupidScreen" class="screen hidden dreamy-screen">
+      <div class="cloud cloud-a">☁️</div><div class="cloud cloud-b">☁️</div>
+      <div class="card cupid-card">
+        <p class="eyebrow">You have a tiny mission 💘</p>
+        <h2>Hit the heart!</h2>
+        <p id="cupidHint">Tap the bow and send the  arrow 💕</p>
+        <div class="cupid-stage">
+          <div class="cupid-character">
+            <div class="character-slot cupid-bunny"></div>
+            <div class="bow">⟩</div>
+          </div>
+          <div id="arrow" class="love-arrow" aria-hidden="true"><span class="arrow-shaft">➜</span><span class="arrow-heart">♥</span></div>
+          <button id="heartTarget" class="heart-target" aria-label="Love heart">♥</button>
+        </div>
+        <button id="shootBtn" class="primary-btn">🏹 Shoot the arrow!</button>
+        <button id="afterCupidBtn" class="primary-btn hidden">Continue with my heart 💗</button>
+      </div>
+    </section>
+
+    <!-- 4 PREMIUM ENVELOPE -->
+    <section id="envelopeScreen" class="screen hidden envelope-screen">
+      <div class="character-slot envelope-character" aria-hidden="true"></div>
+      <div class="card envelope-card">
+        <p class="eyebrow">A private little letter 💌</p>
+        <h2>Something special for you...</h2>
+        <div class="premium-envelope-wrap">
+          <div id="envelope" class="premium-envelope">
+            <div class="envelope-shadow"></div>
+            <div class="envelope-back"></div>
+            <div class="envelope-letter">
+              <div class="letter-paper">
+                <div class="letter-flower">🌸</div>
+                <p>Dear <span class="name-slot"></span>,</p>
+                <p>Happy Birthday! 💗</p>
+                <p>You deserve the days full of warm hugs, tiny surprises, big smiles, no cries and beautiful memories.</p>
+                <p>Today you are <strong class="age-slot"></strong> years old. ✨</p>
+                <p>Keep shining exactly the way you do.</p>
+                <p class="letter-sign">With lots of love,<br>Someone who cares about you 💕</p>
+              </div>
+            </div>
+            <div class="envelope-front"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" role="button" tabindex="0" aria-label="Open the sealed envelope">♡</div>
+          </div>
+        </div>
+        <button id="openEnvelopeBtn" class="primary-btn">Open the envelope 💌</button>
+        <button id="continueLetterBtn" class="primary-btn hidden">Keep going ✨</button>
+      </div>
+    </section>
+
+    <!-- 5 CANDLE -->
+    <section id="candleScreen" class="screen hidden candle-screen">
+      <div class="candle-stars" aria-hidden="true">✦　⋆　✧　⋆　✦</div>
+      <div class="candle-stage">
+        <div class="character-speech-wrap">
+          <div class="character-slot candle-character"></div>
+          <div class="speech-bubble">Make a wish...<br>then blow the candle 🕯️</div>
+        </div>
+        <div class="cake-scene">
+          <div class="cake-shadow"></div>
+          <div class="cake">
+            <div class="cake-top"></div>
+            <div class="frosting">◡ ◡ ◡ ◡ ◡</div>
+            <div class="cake-body"><span>🎂</span></div>
+            <div class="candle-stick"><div id="flame" class="flame"></div><div class="wick"></div></div>
+          </div>
+        </div>
+        <h2>Make a wish ✨</h2>
+        <p id="blowText">Blow into your microphone 🌬️</p>
+        <div class="candle-actions"><button id="fakeBlowBtn" class="secondary-btn">I blew it! 🌬️</button></div>
+        <div class="progress-pill">The candle will gently go out in <span id="candleCountdown">5</span>s</div>
+      </div>
+    </section>
+
+    <!-- 6 TORCH REVEAL -->
+    <section id="introScreen" class="screen hidden black-screen">
+      <div class="night-stars">✦　　⋆　　✧　　　　✦　　⋆</div>
+      <div id="walkingCharacter" class="walking-character character-slot"></div>
+      <div id="torchBeam" class="torch-beam"></div>
+      <div id="birthdayReveal" class="birthday-reveal">
+        <p>✨ TODAY IS ALL ABOUT YOU ✨</p>
+        <h1>Happy Birthday,<br><span id="personName">Beautiful Human</span>! 🎂💖</h1>
+        <div class="age-badge">You are <strong id="revealAge"></strong> years old! 💕</div>
+        <div class="reveal-stickers">🎀 🥳 💕 ✨ 🌸 🫶</div>
+      </div>
+    </section>
+
+    <!-- 7 MEMORIES -->
+    <section id="memoriesScreen" class="screen hidden memories-screen">
+      <div class="section-header">
+        <div><p class="eyebrow">The little memory box</p><h2>Pull the string for a memory 📸</h2></div>
+        <div class="character-slot section-character"></div>
+      </div>
+
+      <div class="memory-intro-card">
+        <div class="character-slot memory-character"></div>
+        <div><h3>Ready?</h3><p>I tied each memory to a thread. Pull one at a time. 🎀</p></div>
+      </div>
+
+      <div class="clothesline-wrap">
+        <div class="clothesline"></div>
+        <div id="photoStage" class="photo-stage"></div>
+      </div>
+      <div class="pull-controls">
+        <button id="pullPhotoBtn" class="primary-btn">🧵 Pull the string</button>
+        <span id="photoCounter" class="muted small">Memory 0</span>
+      </div>
+      <div id="photoLoading" class="loading">I am  fetching your memories... 🐰💨</div>
+      <p id="photoEmpty" class="empty hidden">No photos yet — check your Google Drive Photos folder. 💗</p>
+
+      <div class="video-section">
+        <div class="video-intro">
+          <div class="character-slot pull-character"></div><div class="rope"></div><div class="video-card-mini">🎬</div>
+          <div><p class="eyebrow">And now...</p><h2>I brought a video just dedicated for you!! 🎥</h2></div>
+        </div>
+        <div id="videoLoading" class="loading">Fetching the video... 🎀</div>
+        <div id="videoList" class="video-list"></div>
+        <p id="videoEmpty" class="empty hidden">No videos yet — add them to your Google Drive Videos folder. 🎬</p>
+      </div>
+
+      <div id="finalMessage" class="final-message hidden">
+        <div class="character-slot final-character"></div>
+        <p class="eyebrow">One last thing...</p>
+        <h2>You mean the world to me 💗</h2>
+        <p>May your year be full of laughter, peace, unforgettable moments and all the happiness you deserve.</p>
+        <div class="final-love">Always Keep Smiling 🤗! 💕✨</div>
+      </div>
+
+      <div class="drive-bar"><button id="driveSetupBtn" class="secondary-btn">⚙️ Google Drive Setup</button><span id="driveStatus">Drive not configured</span></div>
+      <footer>Made with way too much love ❤️</footer>
+    </section>
+  </main>
+
+  <div id="videoPlayerModal" class="video-player-modal hidden" role="dialog" aria-modal="true" aria-labelledby="videoPlayerTitle">
+    <div class="video-player-shell">
+      <button id="closeVideoPlayer" class="video-player-close" type="button" aria-label="Close video">×</button>
+      <div class="video-player-heading"><span>🎬</span><div><p class="eyebrow">A little memory</p><h2 id="videoPlayerTitle">Video memory</h2></div></div>
+      <video id="videoPlayer" class="video-player" controls playsinline></video>
+      <p class="video-player-hint">Tap the full-screen button for the best view ✨</p>
+    </div>
+  </div>
+
+  <!-- Google Drive setup modal -->
+  <div id="driveModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="driveTitle">
+    <div class="modal-card">
+      <button id="closeDriveModal" class="modal-close">×</button>
+      <p class="eyebrow">Private setup for the creator</p>
+      <h2 id="driveTitle">Google Drive Setup ☁️</h2>
+      <p class="muted small">Use public Viewer folders. The API key is visible in the browser, so restrict it to Google Drive API + your site domain.</p>
+      <label>Google Drive API Key<input id="apiKeyInput" type="text" placeholder="AIza..." autocomplete="off"></label>
+      <label>Photos Folder ID<input id="photosFolderInput" type="text" placeholder="Folder ID from /folders/..."></label>
+      <label>Videos Folder ID<input id="videosFolderInput" type="text" placeholder="Folder ID from /folders/..."></label>
+      <div class="modal-actions"><button id="saveDriveBtn" class="primary-btn">Save & Fetch Memories ✨</button><button id="testDriveBtn" class="secondary-btn">Test setup</button></div>
+      <p id="driveSetupMessage" class="error-text"></p>
+    </div>
+  </div>
+
+  <script src="config.js?v=3"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>
