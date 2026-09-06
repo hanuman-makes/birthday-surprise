@@ -70,7 +70,7 @@ googleDrive: {
 }
 ```
 
-Or, after the reveal, tap **⚙️ Google Drive Setup** and enter the API key + folder IDs in the website.
+Edit these values in `config.js` before deploying. The website does not expose a Drive setup editor to visitors.
 
 Folder ID is the value after `/folders/` in a Drive folder URL.
 

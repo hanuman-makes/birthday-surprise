@@ -1,7 +1,7 @@
 /*
   ✨ BIRTHDAY SURPRISE CONFIG
   Edit this file if you want permanent settings in the website.
-  The on-screen ⚙️ Drive Setup can also save these settings in your browser.
+  Drive settings are configured here and loaded automatically by the website.
 
   IMPORTANT: Google Drive API keys are browser-visible. Restrict the key to
   your website domain and to the Google Drive API.
