@@ -177,6 +177,7 @@
         <div class="final-love">Always Keep Smiling 🤗! 💕✨</div>
       </div>
 
+      <div class="drive-bar"><button id="driveSetupBtn" class="secondary-btn">⚙️ Google Drive Setup</button><span id="driveStatus">Drive not configured</span></div>
       <footer>Made with way too much love ❤️</footer>
     </section>
   </main>
@@ -187,6 +188,21 @@
       <div class="video-player-heading"><span>🎬</span><div><p class="eyebrow">A little memory</p><h2 id="videoPlayerTitle">Video memory</h2></div></div>
       <video id="videoPlayer" class="video-player" controls playsinline></video>
       <p class="video-player-hint">Tap the full-screen button for the best view ✨</p>
+    </div>
+  </div>
+
+  <!-- Google Drive setup modal -->
+  <div id="driveModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="driveTitle">
+    <div class="modal-card">
+      <button id="closeDriveModal" class="modal-close">×</button>
+      <p class="eyebrow">Private setup for the creator</p>
+      <h2 id="driveTitle">Google Drive Setup ☁️</h2>
+      <p class="muted small">Use public Viewer folders. The API key is visible in the browser, so restrict it to Google Drive API + your site domain.</p>
+      <label>Google Drive API Key<input id="apiKeyInput" type="text" placeholder="AIza..." autocomplete="off"></label>
+      <label>Photos Folder ID<input id="photosFolderInput" type="text" placeholder="Folder ID from /folders/..."></label>
+      <label>Videos Folder ID<input id="videosFolderInput" type="text" placeholder="Folder ID from /folders/..."></label>
+      <div class="modal-actions"><button id="saveDriveBtn" class="primary-btn">Save & Fetch Memories ✨</button><button id="testDriveBtn" class="secondary-btn">Test setup</button></div>
+      <p id="driveSetupMessage" class="error-text"></p>
     </div>
   </div>
 

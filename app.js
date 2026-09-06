@@ -149,6 +149,11 @@ function getDriveConfig(){
   return config;
 }
 function hasDriveConfig(c){return c.apiKey && !c.apiKey.includes('PASTE_') && ((c.photosFolderId&&!c.photosFolderId.includes('PASTE_'))||(c.parentFolderId&&!c.parentFolderId.includes('PASTE_')));}
+function fillDriveModal(){const c=getDriveConfig();$('apiKeyInput').value=c.apiKey||'';$('photosFolderInput').value=c.photosFolderId||'';$('videosFolderInput').value=c.videosFolderId||'';}
+function openDriveModal(){fillDriveModal();$('driveSetupMessage').textContent='';$('driveModal').classList.remove('hidden')}
+function closeDriveModal(){$('driveModal').classList.add('hidden')}
+$('driveSetupBtn').addEventListener('click',openDriveModal);$('closeDriveModal').addEventListener('click',closeDriveModal);
+
 async function driveList(folderId,mimePrefix){
   const c=getDriveConfig(); if(!folderId)throw new Error('Folder ID is missing.'); if(!c.apiKey||c.apiKey.includes('PASTE_'))throw new Error('Google Drive API key is missing.');
   const q=`'${folderId}' in parents and trashed = false and mimeType contains '${mimePrefix}'`;
@@ -177,13 +182,13 @@ let memoryFiles=[];let memoryIndex=-1;
 async function loadDriveMedia(){
   $('photoLoading').classList.remove('hidden');$('videoLoading').classList.remove('hidden');$('photoEmpty').classList.add('hidden');$('videoEmpty').classList.add('hidden');
   const c=getDriveConfig();
-  if(!hasDriveConfig(c)){ $('photoLoading').textContent='The memory box is not configured yet. ☁️';$('videoLoading').textContent='Videos are not configured yet. 🎬';$('photoEmpty').classList.remove('hidden');$('videoEmpty').classList.remove('hidden');return; }
+  if(!hasDriveConfig(c)){ $('photoLoading').textContent='Add your Google Drive API key + folder IDs below to unlock the memory box. ☁️';$('videoLoading').textContent='Add a Videos Folder ID below to unlock videos. 🎬';$('driveStatus').textContent='Drive setup needed';$('photoEmpty').classList.remove('hidden');$('videoEmpty').classList.remove('hidden');return; }
   try{
     let photosId=c.photosFolderId, videosId=c.videosFolderId;
     if(c.parentFolderId){if(!photosId)photosId=await findSubfolder(c.parentFolderId,'Photos');if(!videosId)videosId=await findSubfolder(c.parentFolderId,'Videos');}
     const [photos,videos]=await Promise.all([driveList(photosId,'image/'),videosId?driveVideos(videosId):Promise.resolve([])]);
-    memoryFiles=photos.slice(0,CONFIG.maxPhotos);memoryIndex=-1;renderNextPhoto();renderVideos(videos.slice(0,CONFIG.maxVideos));
-  }catch(e){console.error(e);$('photoLoading').textContent=`Could not fetch photos: ${e.message}`;$('videoLoading').textContent='Could not fetch videos. Please check the Drive configuration. 🎬';}
+    memoryFiles=photos.slice(0,CONFIG.maxPhotos);memoryIndex=-1;renderNextPhoto();renderVideos(videos.slice(0,CONFIG.maxVideos));$('driveStatus').textContent=`Connected • ${memoryFiles.length} photos • ${videos.length} videos`;
+  }catch(e){console.error(e);$('photoLoading').textContent=`Could not fetch photos: ${e.message}`;$('videoLoading').textContent='Could not fetch videos. Check the Drive setup. 🎬';$('driveStatus').textContent='Drive error';$('driveSetupMessage').textContent=e.message;}
 }
 
 function renderNextPhoto(){
@@ -208,5 +213,8 @@ function openVideoPlayer(file){
 }
 function closeVideoPlayer(){const player=$('videoPlayer');if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});player.pause();player.removeAttribute('src');player.load();$('videoPlayerModal').classList.add('hidden');document.body.classList.remove('video-modal-open');resumeMusicAfterVideo();}
 $('closeVideoPlayer').addEventListener('click',closeVideoPlayer);$('videoPlayerModal').addEventListener('click',(event)=>{if(event.target===$('videoPlayerModal'))closeVideoPlayer()});$('videoPlayer').addEventListener('play',pauseMusicForVideo);$('videoPlayer').addEventListener('ended',()=>{resumeMusicAfterVideo();$('finalMessage').classList.remove('hidden')});document.addEventListener('keydown',(event)=>{if(event.key==='Escape'&&!$('videoPlayerModal').classList.contains('hidden'))closeVideoPlayer()});
+
+$('saveDriveBtn').addEventListener('click',async()=>{const cfg={apiKey:$('apiKeyInput').value.trim(),photosFolderId:normalizeDriveId($('photosFolderInput').value),videosFolderId:normalizeDriveId($('videosFolderInput').value)};if(!cfg.apiKey||!cfg.photosFolderId){$('driveSetupMessage').textContent='API key and a valid Photos Folder ID are required.';return}localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));closeDriveModal();loadDriveMedia();});
+$('testDriveBtn').addEventListener('click',async()=>{const cfg={apiKey:$('apiKeyInput').value.trim(),photosFolderId:$('photosFolderInput').value.trim(),videosFolderId:$('videosFolderInput').value.trim()};if(!cfg.apiKey||!cfg.photosFolderId){$('driveSetupMessage').textContent='Enter the API key and Photos Folder ID first.';return}try{localStorage.setItem(STORAGE_KEY,JSON.stringify(cfg));await driveList(cfg.photosFolderId,'image/');if(cfg.videosFolderId)await driveList(cfg.videosFolderId,'video/');$('driveSetupMessage').textContent='Connection works! ✨ Click Save & Fetch Memories.';}catch(e){$('driveSetupMessage').textContent=e.message;}});
 
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopMic()});
